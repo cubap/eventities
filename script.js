@@ -115,7 +115,7 @@ angular.module("Eventities", ['ngStorage'])
                             defaultFields: [{
                                     label: "label",
                                     "@id": "rdfs:label",
-                                    _defaultValue: NULL,
+                                    _defaultValue: null,
                                     _typeOf: "string", // ultimately resolves to
                                     _nMin: 0,
                                     _nMax: Infinity

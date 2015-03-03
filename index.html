@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="Eventities">
+
+<head>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="container">
+    <div ng-controller="AdminController">
+        <ul>
+            <li ng-repeat="each in types">{{each.label}}</li>
+        </ul>
+        <form name="newEntity" id="newEntity" ng-submit="addToConfig(newEntity)">
+            <label>label:</label><input type="text" name="label" >
+        </form>
+    </div>
+  <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

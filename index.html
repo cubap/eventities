@@ -10,7 +10,7 @@
 <body class="container" ng-controller="MainController">
     <div ng-controller="AdminController">
         <ul>
-            <li ng-repeat="(each,key) in types">{{key}}</li>
+            <li ng-repeat="(key,each) in types">{{key}}</li>
         </ul>
         <form name="newEntity" id="newEntity" ng-submit="addToConfig(newEntity)">
             <label>label:</label><input type="text" name="label" >

@@ -105,7 +105,8 @@ angular.module("Eventities", ['ngStorage'])
                 return evts;
             };
             $localStorage.$default({
-                entities: {},
+            entities: {},
+            types: {},
                 "@context": {
                     config: {
                         "ENTITY": {
@@ -196,7 +197,7 @@ angular.module("Eventities", ['ngStorage'])
             this.resetStorage = $localStorage.reset;
         })
     .controller("AdminController", function ($scope, $localStorage) {
-        $scope.types = $localStorage["@context"].config;
+        $scope.types = $localStorage.types;
         $scope.newEntity = {};
     })
     .controller("MainController", function ($scope, $localStorage, EntitiesService) {

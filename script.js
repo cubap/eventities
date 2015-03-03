@@ -198,7 +198,9 @@ angular.module("Eventities", ['ngStorage'])
         })
     .controller("AdminController", function ($scope, $localStorage) {
         $scope.types = $localStorage.types;
-        $scope.newEntity = {};
+        $scope.addToConfig = function (config) {
+            var toAdd = config;
+        };
     })
     .controller("MainController", function ($scope, $localStorage, EntitiesService) {
         $scope.editEnt = {};

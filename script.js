@@ -201,6 +201,7 @@ angular.module("Eventities", ['ngStorage'])
         $scope.addToConfig = function (config) {
             var toAdd = config;
         };
+        $scope.newEnt = {};
     })
     .controller("MainController", function ($scope, $localStorage, EntitiesService) {
         $scope.editEnt = {};
@@ -240,6 +241,18 @@ angular.module("Eventities", ['ngStorage'])
         };
         $scope.hasProps = function (obj) {
             return Object.getOwnPropertyNames(obj).length;
+        };
+        $scope.ofClass = function (c) {
+            var list = [];
+            if (!c) {
+                c = null;
+            }
+            angular.forEach($localStorage.types, function (type) {
+                if (type.class === c) {
+                    list.push(type);
+                }
+            });
+            return list;
         };
         $scope.initializeTypes = (function () {
             angular.forEach($localStorage["@context"].config, function (cfg, key) {

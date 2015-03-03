@@ -14,13 +14,20 @@
         </ul>
         <form name="newEntity" id="newEntity" ng-submit="addToConfig(newEntity)">
             <h3>New Entry</h3>
-            <label>label:</label><input ng-model="newEnt.label" type="text" name="label" >
-            <label>class:</label><span>{{newEnt.class}}</span>
-            <button type="button" ng-show="newEnt.class" ng-click="newEnt.class=types[newEnt.class].class">
+            <div class="form-group">
+                <label>label:</label><input class="form-control" ng-model="newEnt.label" type="text" name="label" >
+            </div>
+            <div class="form-group">
+                <label>class:</label><span>{{newEnt.class}}</span>
+            <button class="btn btn-default" type="button" ng-show="newEnt.class" ng-click="newEnt.class=types[newEnt.class].class">
                 <i class="fa fa-arrow-up"></i>
             </button>
-            <button ng-repeat="class in ofClass(newEnt.class)" ng-click="newEnt.class=class">{{class}}</button>
-            <button type="submit">+</button>
+            <div class="btn-group">
+                <button class="btn btn-default" ng-repeat="class in ofClass(newEnt.class)" ng-click="newEnt.class=class">{{class}}</button>
+            </div>
+            </div>
+
+            <button class="btn btn-primary" type="submit">+</button>
         </form>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>

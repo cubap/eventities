@@ -202,7 +202,9 @@ angular.module("Eventities", ['ngStorage'])
         $scope.addToConfig = function (config) {
             var toAdd = config;
         };
-        $scope.newEnt = {};
+        $scope.newEnt = {
+            class: "ENTITY" // init, for now
+        };
     })
     .controller("MainController", function ($scope, $localStorage, EntitiesService) {
         $scope.editEnt = {};
@@ -243,7 +245,6 @@ angular.module("Eventities", ['ngStorage'])
         $scope.hasProps = function (obj) {
             return Object.getOwnPropertyNames(obj).length;
         };
-        $scope.class = "ENTITY"; // init, for now
         $scope.ofClass = function (c) {
             var list = [];
             if (!c) {

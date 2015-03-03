@@ -111,7 +111,8 @@ angular.module("Eventities", ['ngStorage'])
                     config: {
                         "ENTITY": {
                             class: null,
-                            "@type": "nv:Entity",
+                        "@type": "nv:Entity",
+                        requires: [],
                             requiredFields: ["label", "@id", "@type"],
                             defaultFields: [{
                                     label: "label",
@@ -242,6 +243,7 @@ angular.module("Eventities", ['ngStorage'])
         $scope.hasProps = function (obj) {
             return Object.getOwnPropertyNames(obj).length;
         };
+        $scope.class = "ENTITY"; // init, for now
         $scope.ofClass = function (c) {
             var list = [];
             if (!c) {

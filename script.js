@@ -247,9 +247,9 @@ angular.module("Eventities", ['ngStorage'])
             if (!c) {
                 c = null;
             }
-            angular.forEach($localStorage.types, function (type) {
+            angular.forEach($localStorage.types, function (type, key) {
                 if (type.class === c) {
-                    list.push(type);
+                    list.push(key);
                 }
             });
             return list;

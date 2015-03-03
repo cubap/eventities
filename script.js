@@ -115,7 +115,7 @@ angular.module("Eventities", ['ngStorage'])
                             defaultFields: [{
                                     label: "label",
                                     "@id": "rdfs:label",
-                                    _defaultValue: NULL,
+                                _defaultValue: null,
                                     _typeOf: "string", // ultimately resolves to
                                     _nMin: 0,
                                     _nMax: Infinity
@@ -196,7 +196,7 @@ angular.module("Eventities", ['ngStorage'])
             this.resetStorage = $localStorage.reset;
         })
     .controller("AdminController", function ($scope, $localStorage) {
-        $scope.types = $localStorage["@context"].config;
+        $scope.types = $localStorage.types;
         $scope.newEntity = {};
     })
     .controller("MainController", function ($scope, $localStorage, EntitiesService) {
@@ -238,18 +238,28 @@ angular.module("Eventities", ['ngStorage'])
         $scope.hasProps = function (obj) {
             return Object.getOwnPropertyNames(obj).length;
         };
-    });
-
-angular.module("FamilyTree", ['Eventities'])
-    .controller("personController", function ($scope, EntitiesService) {
-        $scope.newPerson = function (participants, config) {
-            var init = {
-                "@type": "PERSON",
-                participants: participants
-            };
-            if (config) {
-                init = angular.extend(config, init);
-            }
-            EntitiesService.new(init);
+        $scope.initializeTypes = function () {
+            angular.forEach($localStorage["@context"].config, function (cfg, key) {
+                var newType = {
+                    class: cfg.class,
+                    rules: {
+                        requiredFields: cfg.requiredFields
+                    }
+                };
+                var newContext = {
+                    "@id": cfg["@type"],
+                    label:key
+                };
+                angular.forEach(cfg.defaultFields, function (field) {
+                    newType[field.label] = _defaultValue;
+                    newType.rules[field.label] = {
+                        _typeOf: field._typeOf,
+                        _nMin: field._nMin,
+                        _nMax: field._nMax
+                    };
+                });
+                $localStorage.types[key] = newType;
+                $localStorage["@context"].json = newContext;
+            });
         };
     });

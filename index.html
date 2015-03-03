@@ -18,10 +18,10 @@
                 To add a new type of entity or event, use the form below.
             </p>
             <ol>
-                <li ng-class="{'text-muted':newEnt.label}">Add a label by which {{newEnt.label||'this addition'}} will be known.</li>
-                <li ng-class="{'text-muted':newEnt.class}">Select a category from which {{newEnt.label||'this addition'}} will inherit requirements.</li>
-                <li ng-class="{'text-muted':newEnt.defaultFields}">Confirm the default fields or add more</li>
-                <li ng-class="{'text-muted':newEnt.requires}">Add any required elements</li>
+                <li ng-class="{'text-muted':newEnt.label}">Add a label by which {{newEnt.label||'this addition'}} will be known.<i ng-show="newEnt.label" class="fa fa-check pull-left"></i></li>
+                <li ng-class="{'text-muted':newEnt.class}">Select a category from which {{newEnt.label||'this addition'}} will inherit requirements.<i ng-show="newEnt.class" class="fa fa-check pull-left"></i></li>
+                <li ng-class="{'text-muted':newEnt.defaultFields}">Confirm the default fields or add more.<i ng-show="newEnt.defaultFields" class="fa fa-check pull-left"></i></li>
+                <li ng-class="{'text-muted':newEnt.requires}">Add any required elements.<i ng-show="newEnt.requires" class="fa fa-check pull-left"></i></li>
             </ol>
             <div class="form-group">
                 <label>label:</label><input class="form-control" ng-model="newEnt.label" type="text" name="label" >

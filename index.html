@@ -16,7 +16,7 @@
             <h3>New Entry</h3>
             <label>label:</label><input ng-model="newEnt.label" type="text" name="label" >
             <label>class:</label><span>{{newEnt.class}}</span>
-            <button type="button" ng-show="newEnt.class" ng-click="newEnt.class">
+            <button type="button" ng-show="newEnt.class" ng-click="class=newEnt.class">
                 <i class="fa fa-arrow-up"></i>
             </button>
             <button ng-repeat="class in ofClass(newEnt.class)" ng-click="newEnt.class=class">{{class}}</button>

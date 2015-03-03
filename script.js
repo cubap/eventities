@@ -252,7 +252,7 @@ angular.module("Eventities", ['ngStorage'])
                     label: key
                 };
                 angular.forEach(cfg.defaultFields, function (field) {
-                    newType[field.label] = _defaultValue;
+                    newType[field.label] = field._defaultValue;
                     newType.rules[field.label] = {
                         _typeOf: field._typeOf,
                         _nMin: field._nMin,

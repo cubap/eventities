@@ -61,8 +61,7 @@ angular.module("Eventities", ['ngStorage'])
             }
         }
     })
-    .service("EntitiesService", ["@context", "$localStorage", "definedTypes",
-        function (context, $localStorage, types) {
+    .service("EntitiesService", function ($localStorage) {
             var service = this;
             var checkKnownTypes = function (type) {
                 var init = {};
@@ -195,8 +194,7 @@ angular.module("Eventities", ['ngStorage'])
             });
             this.list = $localStorage.entities;
             this.resetStorage = $localStorage.reset;
-        }
-    ])
+        })
     .controller("AdminController", function ($scope, $localStorage) {
         $scope.types = $localStorage["@context"].config;
         $scope.newEntity = {};

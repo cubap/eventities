@@ -206,21 +206,21 @@ angular.module("Eventities", ['ngStorage'])
             class: "ENTITY" // init, for now
         };
         $scope.loadClassDefaults = function () {
-            $scope.newEnt.defaultFields = $localStorage.types[$scope.newEnt.class].defaultFields;
-            $scope.newEnt.requiredFields = $localStorage.types[$scope.newEnt.class].requiredFields;
+            $scope.newEnt.rules.defaultFields = $localStorage.types[$scope.newEnt.class].rules.defaultFields;
+            $scope.newEnt.rules.requiredFields = $localStorage.types[$scope.newEnt.class].rules.requiredFields;
         };
         $scope.toggleValue = function (value) {
-        if (angular.isArray($scope.newEnt.defaultFields)) {
-            $scope.newEnt.defaultFields = [$scope.newEnt.defaultFields];
+            if (angular.isArray($scope.newEnt.rules.defaultFields)) {
+                $scope.newEnt.rules.defaultFields = [$scope.newEnt.rules.defaultFields];
         }
         var index = $scope.newEnt.defaultFields.indexOf(value);
         if (index === -1) {
-        $scope.newEnt.defaultFields.push(value);
+                $scope.newEnt.rules.defaultFields.push(value);
     } else {
-                $scope.newEnt.defaultFields.splice(index, 1);
+                $scope.newEnt.rules.defaultFields.splice(index, 1);
             }
-            if ($scope.newEnt.defaultFields.length === 1) {
-                $scope.newEnt.defaultFields = $scope.newEnt.defaultFields[0];
+            if ($scope.newEnt.rules.defaultFields.length === 1) {
+                $scope.newEnt.rules.defaultFields = $scope.newEnt.rules.defaultFields[0];
             }
         };
     })

@@ -47,7 +47,7 @@
                         <label>type</label> <input ng-model='field["@id"]' placeholder='context or uri to link'>
                         <label>default value</label> <input ng-model="field._defaultValue" placeholder='initial setting'>
                         <label>Acceptable value type</label>
-                        {{field._typeOf | list}}
+                        <input ng-list ng-model='field._typeOf'>
                         <button class="btn btn-default" ng-click='toggleValue(value)' ng-repeat='value in ["string","number","uri"]'>value</button>
                         <button class="btn btn-default" ng-click='alert()' >value</button>
                     </div>

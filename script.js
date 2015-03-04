@@ -280,21 +280,22 @@ angular.module("Eventities", ['ngStorage'])
                 var newType = {
                     class: cfg.class,
                     rules: {
-                        requiredFields: cfg.requiredFields
+                        requiredFields: cfg.requiredFields,
+                        defaultFields: cfg.defaultFields
                     }
                 };
                 var newContext = {
                     "@id": cfg["@type"],
                     label: key
                 };
-                angular.forEach(cfg.defaultFields, function (field) {
-                    newType[field.label] = field._defaultValue;
-                    newType.rules[field.label] = {
-                        _typeOf: field._typeOf,
-                        _nMin: field._nMin,
-                        _nMax: field._nMax
-                    };
-                });
+//                angular.forEach(cfg.defaultFields, function (field) {
+//                    newType[field.label] = field._defaultValue;
+//                    newType.rules[field.label] = {
+//                        _typeOf: field._typeOf,
+//                        _nMin: field._nMin,
+//                        _nMax: field._nMax
+//                    };
+//                });
                 $localStorage.types[key] = newType;
                 $localStorage["@context"].json = newContext;
             });

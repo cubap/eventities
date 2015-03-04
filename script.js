@@ -214,7 +214,7 @@ angular.module("Eventities", ['ngStorage'])
             defaultFields: []
         };
         $scope.loadClassDefaults = function () {
-            $scope.newEnt.defaultFields = $localStorage.types[$scope.newEnt.class].defaultFields;
+            angular.extend($scope.newEnt, $localStorage.types[$scope.newEnt.class]);
         };
         $scope.toggleValue = function (value) {
             if (angular.isArray($scope.newEnt.defaultFields)) {

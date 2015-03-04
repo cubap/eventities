@@ -48,8 +48,8 @@
                         <label>default value</label> <input ng-model="field._defaultValue" placeholder='initial setting'>
                         <label>Acceptable value type</label>
                         <input ng-list ng-model='field._typeOf'>
-                        <button class="btn btn-default" ng-click='toggleValue(value)' ng-repeat='value in ["string","number","uri"]'>value</button>
-                        <button class="btn btn-default" ng-click='alert()' >value</button>
+                        <button class="btn btn-default" ng-click='toggleValue(value)' ng-repeat='value in ["string","number","uri"]'>{{value}}</button>
+                        <button class="btn btn-default" ng-click='alert("ping")' >value</button>
                     </div>
                 </div>
             </div>

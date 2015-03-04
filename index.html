@@ -38,11 +38,11 @@
             <div class="form-group">
                 <button class="btn btn-info" type="button"
                         ng-click="loadClassDefaults()"
-                        ng-hide="newEnt.class&&newEnt.rules.defaultFields.length">
+                        ng-hide="newEnt.class&&newEnt.defaultFields.length">
                     Load from {{newEnt.class}}
                 </button>
                 <div collapse="!showDefaults">
-                    <div class="form-group" ng-repeat="field in newEnt.rules.defaultFields">
+                    <div class="form-group" ng-repeat="field in newEnt.defaultFields">
                         <label>{{field.label}}</label>
                         <label>type</label> <input ng-model='field["@id"]' placeholder='context or uri to link'>
                         <label>default value</label> <input ng-model="field._defaultValue" placeholder='initial setting'>

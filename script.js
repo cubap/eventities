@@ -178,17 +178,24 @@ angular.module("Eventities", ['ngStorage'])
                                     _defaultValue: undefined,
                                     _typeOf: "string",
                                     _nMin: 1,
-                                    _nMax: 1
+                                _nMax: 1,
+                                required: true
                                 }, {
                                     label: "@value",
                                     "@id": "rdf:value",
                                     _defaultValue: null,
                                     _typeOf: "*",
                                     _nMin: 0,
-                                    _nMax: Infinity
+                                _nMax: Infinity,
+                                required: true
                                 }, {
                                     label: "evidence",
-                                    "@id": "oa:Composite", // Things to support the assertion property:@value
+                                "@id": "oa:Composite", // Things to support the assertion property:@value
+                                _defaultValue: [],
+                                _typeOf: "*",
+                                _nMin: 0,
+                                _nMax: Infinity,
+                                required: true
                                 }]
                         }
                     }
@@ -203,24 +210,24 @@ angular.module("Eventities", ['ngStorage'])
             var toAdd = config;
         };
         $scope.newEnt = {
-            class: "ENTITY" // init, for now
+            class: "ENTITY", // init, for now
+            defaultFields: []
         };
         $scope.loadClassDefaults = function () {
-            $scope.newEnt.rules.defaultFields = $localStorage.types[$scope.newEnt.class].rules.defaultFields;
-            $scope.newEnt.rules.requiredFields = $localStorage.types[$scope.newEnt.class].rules.requiredFields;
+            $scope.newEnt.defaultFields = $localStorage.types[$scope.newEnt.class].defaultFields;
         };
         $scope.toggleValue = function (value) {
-            if (angular.isArray($scope.newEnt.rules.defaultFields)) {
-                $scope.newEnt.rules.defaultFields = [$scope.newEnt.rules.defaultFields];
+            if (angular.isArray($scope.newEnt.defaultFields)) {
+                $scope.newEnt.defaultFields = [$scope.newEnt.defaultFields];
         }
         var index = $scope.newEnt.defaultFields.indexOf(value);
         if (index === -1) {
-                $scope.newEnt.rules.defaultFields.push(value);
+                $scope.newEnt.defaultFields.push(value);
     } else {
-                $scope.newEnt.rules.defaultFields.splice(index, 1);
+                $scope.newEnt.defaultFields.splice(index, 1);
             }
-            if ($scope.newEnt.rules.defaultFields.length === 1) {
-                $scope.newEnt.rules.defaultFields = $scope.newEnt.rules.defaultFields[0];
+            if ($scope.newEnt.defaultFields.length === 1) {
+                $scope.newEnt.defaultFields = $scope.newEnt.defaultFields[0];
             }
         };
     })
@@ -279,10 +286,7 @@ angular.module("Eventities", ['ngStorage'])
             angular.forEach($localStorage["@context"].config, function (cfg, key) {
                 var newType = {
                     class: cfg.class,
-                    rules: {
-                        requiredFields: cfg.requiredFields,
-                        defaultFields: cfg.defaultFields
-                    }
+                    defaultFields: cfg.defaultFields
                 };
                 var newContext = {
                     "@id": cfg["@type"],

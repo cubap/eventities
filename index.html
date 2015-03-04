@@ -35,6 +35,24 @@
                 <button type="button" class="btn btn-default" ng-repeat="c in ofClass(newEnt.class)" ng-click="newEnt.class=c">{{c}}</button>
             </div>
             </div>
+            <div class="form-group">
+                <button class="btn btn-info"
+                        ng-click="loadClassDefaults()"
+                        ng-hide="newEnt.class&&newEnt.defaultFields.length">
+                    Load from {{newEnt.class}}
+                </button>
+                <div collapse="!showDefaults">
+                    <div class="form-group" ng-repeat="field in newEnt.defaultFields">
+                        <label>{{field.label}}</label>
+                        <label>type</label> <input ng-model='field["@id"]' placeholder='context or uri to link'>
+                        <label>default value</label> <input ng-model="field._defaultValue" placeholder='initial setting'>
+                        <label>Acceptable value type</label>
+                        {{field._typeOf | list}}
+                        <button class="btn btn-default" ng-click='toggleValue(value)' ng-repeat='value in ["string","number","uri"]'>value</button>
+                        <button class="btn btn-default" ng-click='alert()' >value</button>
+                    </div>
+                </div>
+            </div>
 
             <button class="btn btn-primary" type="submit">+</button>
         </form>

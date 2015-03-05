@@ -17,131 +17,107 @@
                     <h3 class="panel-title">New Entry</h3>
                 </div>
                 <div class="panel-body">
-                    <p class="help-block">
-                        To add a new type of entity or event, use the form below.
-                    </p>
-                    <ol>
-                        <li ng-class="{'text-muted':newEnt.label,'text-danger':!newEnt.label && newEnt['@type']}">Add a label by which <span class='label label-default' ng-class="{'label-warning':!newEnt.label}">{{newEnt.label||'this new entity'}}</span> will be known.<i ng-show="newEnt.label" class="fa fa-check "></i></li>
-                        <li ng-class="{'text-muted':newEnt['@type']}">Identify a type for this new entity from a known context, if possible.<i ng-show="newEnt['@type']" class="fa fa-check "></i></li>
-                        <li ng-class="{'text-muted':newEnt.class}">Select a class from which it will inherit fields and requirements.<i ng-show="newEnt.class" class="fa fa-check "></i></li>
-                        <li ng-class="{'text-muted':newEnt.defaultFields}">Confirm the default fields or add more.<i ng-show="newEnt.defaultFields" class="fa fa-check "></i></li>
-                        <li ng-class="{'text-muted':newEnt.requires}">Add any required elements.<i ng-show="newEnt.requires" class="fa fa-check "></i></li>
-                    </ol>
-                    <div class="form-group">
-                        <label>Label:</label><input class="form-control" ng-model="newEnt.label" type="text" name="label" placeholder="Short descriptive term for this entity">
+                    <div class="col-lg-3">
+                        <p class="help-block">
+                            To add a new type of entity or event, use the form below.
+                        </p>
+                        <ol>
+                            <li ng-class="{'text-muted':newEnt.label,'text-danger':!newEnt.label && newEnt['@type']}">Add a label by which <span class='label label-default' ng-class="{'label-warning':!newEnt.label}">{{newEnt.label||'this new entity'}}</span> will be known.<i ng-show="newEnt.label" class="fa fa-check "></i></li>
+                            <li ng-class="{'text-muted':newEnt['@type']}">Identify a type for this new entity from a known context, if possible.<i ng-show="newEnt['@type']" class="fa fa-check "></i></li>
+                            <li ng-class="{'text-muted':newEnt.class}">Select a class from which it will inherit fields and requirements.<i ng-show="newEnt.class" class="fa fa-check "></i></li>
+                            <li ng-class="{'text-muted':newEnt.defaultFields}">Confirm the default fields or add more.<i ng-show="newEnt.defaultFields" class="fa fa-check "></i></li>
+                            <li ng-class="{'text-muted':newEnt.requires}">Add any required elements.<i ng-show="newEnt.requires" class="fa fa-check "></i></li>
+                        </ol>
                     </div>
-                    <div class="form-group">
-                        <label>Type:</label><input class="form-control" ng-model="newEnt['@type']" type="text" name="@type" placeholder="Well-defined URI or contextual reference" >
-                    </div>
-                    <div class="form-group">
-                        <label>Class:</label> <span>{{newEnt.class}}</span>
-                        <div class="col-xs-12">
-                            <button class="btn btn-default" type="button" ng-show="newEnt.class" ng-click="newEnt.class = types[newEnt.class].class">
-                                <i class="fa fa-arrow-up"></i>
-                            </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default" ng-repeat="c in ofClass(newEnt.class)" ng-click="newEnt.class = c">{{c}}</button>
+                    <div class="col-lg-9">
+                        <div class="form-group">
+                            <label>Label:</label><input class="form-control" ng-model="newEnt.label" type="text" name="label" placeholder="Short descriptive term for this entity">
+                        </div>
+                        <div class="form-group">
+                            <label>Class:</label> <span class="label label-info">{{newEnt.class}}</span>
+                            <div class="col-xs-12">
+                                <button class="btn btn-default" type="button" ng-show="newEnt.class" ng-click="newEnt.class = types[newEnt.class].class">
+                                    <i class="fa fa-arrow-up"></i>
+                                </button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default" ng-repeat="c in ofClass(newEnt.class)" ng-click="newEnt.class = c">{{c}}</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Default Fields:</label>
-                        <button class="btn btn-info" type="button"
-                                ng-click="loadClassDefaults()"
-                                ng-show="newEnt.class">
-                            Load from {{newEnt.class}}
-                        </button>
-                        <accordion>
-                            <accordion-group heading="{{field.label}}" class="form-group" ng-repeat="field in newEnt.defaultFields">
-                                <label>type</label> <input class="form-control" ng-model='field["@id"]' placeholder='context or uri to link'>
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <label>default value</label> <input class="form-control" ng-model="field._defaultValue" placeholder='initial setting'>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Minimum</label>
-                                        <input type="number" class="form-control" ng-model="field._nMin">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Maximum</label>
-                                        <div class="input-group">
-                                            <input ng-hide="field._infinite" min="0" type="number" class="form-control" ng-model="field._nMax">
-                                            <input ng-show="field._infinite" class="form-control" disabled value="&infin;">
-                                            <span class="input-group-btn">
-                                                <label class="btn btn-primary" ng-model="field._infinite" btn-checkbox>
-                                                    {{field._infinite && "unlimited" ||"&infin;"}}
-                                                </label>
-                                            </span>
+                        <div class="form-group">
+                            <label>Type:</label><input class="form-control" ng-model="newEnt['@type']" type="text" name="@type" placeholder="Well-defined URI or contextual reference" >
+                            <p class="help-block">Parent type is
+                                <button type="button" class="btn btn-xs btn-default"
+                                        ng-click="newEnt['@type'] = types[newEnt.class]['@type'] || types[types[newEnt.class].class]['@type'] || types[types[types[newEnt.class].class].class]['@type'] || ''">
+                                    {{types[newEnt.class]['@type']||types[types[newEnt.class].class]['@type']||types[types[types[newEnt.class].class].class]['@type']||"tough to say"}}
+                                </button>.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label>Default Fields:</label>
+                            <button class="btn btn-default" type="button"
+                                    ng-click="loadClassDefaults()"
+                                    ng-show="newEnt.class">
+                                Load from {{newEnt.class}}
+                            </button>
+                            <accordion>
+                                <accordion-group heading="{{field.label}}" class="form-group"
+                                                 ng-repeat="field in newEnt.defaultFields"
+                                                 is-disabled="field.label==='@type'||field.label==='label'"
+                                                 title="{{(field.label==='@type'||field.label==='label')&&'Altering this property breaks compliance'||'Click to modify'}}">
+                                    <label>type</label> <input class="form-control" ng-model='field["@id"]' placeholder='context or uri to link'>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label>default value</label> <input class="form-control" ng-model="field._defaultValue" placeholder='initial setting'>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Minimum</label>
+                                            <input type="number" class="form-control" ng-model="field._nMin">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Maximum</label>
+                                            <div class="input-group">
+                                                <input ng-hide="field._infinite" min="0" type="number" class="form-control" ng-model="field._nMax">
+                                                <input ng-show="field._infinite" class="form-control" disabled value="&infin;">
+                                                <span class="input-group-btn">
+                                                    <label class="btn btn-primary" ng-model="field._infinite" btn-checkbox>
+                                                        {{field._infinite && "unlimited"||"&infin;"}}
+                                                    </label>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <label>Expected value types</label>
-                                <span class="label label-info" ng-repeat="f in field._typeOf">{{f}}</span>
-                                <div class="col-xs-12">
-                                    <p class="help-block">Basic Types</p>
-                                    <div class="btn-group btn-group-justified col-xs-12">
-                                        <a class="btn btn-default" ng-click='toggleValue(field, value)'
-                                           role="button" ng-class="{active:field._typeOf.indexOf(value)>-1}"
-                                           ng-repeat='value in defaultObjectTypes'>{{value}}</a>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <p class="help-block">Entity References</p>
-                                    <div class="btn-group btn-group-justified col-xs-12">
-                                        <a class="btn btn-default" ng-click='toggleValue(field, value)'
-                                           role="button" ng-class="{active:field._typeOf.indexOf(value)>-1}"
-                                           ng-repeat="(value,t) in types">{{value}}</a>
-                                    </div>
-                                </div>
-                            </accordion-group>
-                            <!--                            <accordion-group heading="{{field.label}}" class="form-group" ng-repeat="field in inheritedFields">
-                                                            <div class="form-group">
-                                    <label>type</label>
-                                    <input class="form-control" ng-model='field["@id"]' placeholder='context or uri to link'>
-                                </div>
-                                <div class="form-group clearfix">
-                                    <div class="col-sm-6">
-                                        <label>default value</label> <input class="form-control" ng-model="field._defaultValue" placeholder='initial setting'>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Minimum</label>
-                                        <input type="number" class="form-control" ng-model="field._nMin">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label>Maximum</label>
-                                        <div class="input-group">
-                                            <input ng-hide="field._infinite" min="0" type="number" class="form-control" ng-model="field._nMax">
-                                            <input ng-show="field._infinite" class="form-control" disabled value="&infin;">
-                                            <span class="input-group-btn">
-                                                <label class="btn btn-primary" ng-model="field._infinite" btn-checkbox>
-                                                    {{field._infinite && "unlimited" ||"&infin;"}}
-                                                </label>
-                                            </span>
+                                    <label>Expected value types</label>
+                                    <p class="help-block">
+                                        <span ng-show="field._noTypeRestriction">No restrictions</span>
+                                        <span class="label label-info" ng-hide="field._noTypeRestriction" ng-repeat="f in field._typeOf">{{f}}</span>
+                                    </p>
+                                    <label btn-checkbox ng-model="field._noTypeRestriction"
+                                           class="btn-primary btn">
+                                        <i class="fa fa-toggle-{{field._noTypeRestriction && 'on'||'off'}}"></i>
+                                        {{"Accept anything"}}
+                                    </label>
+                                    <div collapse="field._noTypeRestriction">
+                                        <div class="col-xs-12">
+                                            <p class="help-block">Basic Types</p>
+                                            <div class="btn-group btn-group-justified col-xs-12">
+                                                <a class="btn btn-default" ng-click='toggleValue(field, value)'
+                                                   role="button" ng-class="{active:field._typeOf.indexOf(value) > -1}"
+                                                   ng-repeat='value in defaultObjectTypes'>{{value}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p class="help-block">Entity References</p>
+                                            <div class="btn-group btn-group-justified col-xs-12">
+                                                <a class="btn btn-default" ng-click='toggleValue(field, value)'
+                                                   role="button" ng-class="{active:field._typeOf.indexOf(value) > -1}"
+                                                   ng-repeat="(value,t) in types">{{value}}</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Acceptable value types</label>
-                                <span class="label label-info" ng-repeat="f in field._typeOf">{{f}}</span>
-                                <div class="col-xs-12">
-                                    <p class="help-block">Basic Types</p>
-                                    <div class="btn-group btn-group-justified col-xs-12">
-                                        <a class="btn btn-default" ng-click='toggleValue(field, value)'
-                                           role="button" ng-class="{active:field._typeOf.indexOf(value)>-1}"
-                                           ng-repeat='value in defaultObjectTypes'>{{value}}</a>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12">
-                                    <p class="help-block">Entity References</p>
-                                    <div class="btn-group btn-group-justified col-xs-12">
-                                        <a class="btn btn-default" ng-click='toggleValue(field, value)'
-                                           role="button" ng-class="{active:field._typeOf.indexOf(value)>-1}"
-                                           ng-repeat="(value,t) in types">{{value}}</a>
-                                    </div>
-                                </div>
-                                </div>
-                                                        </accordion-group>-->
-                        </accordion>
+                                </accordion-group>
+                            </accordion>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-footer">

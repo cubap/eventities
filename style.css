@@ -1,2 +1,4 @@
-/* Styles go here */
-
+a.accordion-toggle {
+    display: block;
+    text-decoration: none;
+}

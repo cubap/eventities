@@ -92,7 +92,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
                          * is the property and value to be applied.
                          * */
                         class: null,
-                        "@type": ["nv:Outcome", "oa:Annotation"],
+                        "@type": "nv:Outcome", // also an "oa:Annotation", but let's catch this in the @context
                         defaultFields: [{
                                 label: "hasTarget",
                                 "@id": "oa:hasTarget",
@@ -127,6 +127,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
                                 "@id": "rdf:value",
                                 _defaultValue: null,
                                 _typeOf: ["*"],
+                                _noTypeRestriction: true,
                                 _nMin: 0,
                                 _nMax: Infinity,
                                 _infinite: true,
@@ -136,6 +137,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
                                 "@id": "oa:Composite", // Things to support the assertion property:@value
                                 _defaultValue: [],
                                 _typeOf: ["*"],
+                                _noTypeRestriction: true,
                                 _nMin: 0,
                                 _nMax: Infinity,
                                 _infinite: true,
@@ -259,6 +261,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
             angular.forEach($localStorage["@context"].config, function (cfg, key) {
                 var newType = {
                     class: cfg.class,
+                    "@type": cfg["@type"],
                     defaultFields: cfg.defaultFields
                 };
                 var newContext = {

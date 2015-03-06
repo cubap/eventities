@@ -126,7 +126,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
                                 label: "@value",
                                 "@id": "rdf:value",
                                 _defaultValue: null,
-                                _typeOf: ["*"],
+                                _typeOf: [],
                                 _noTypeRestriction: true,
                                 _nMin: 0,
                                 _nMax: Infinity,
@@ -136,7 +136,7 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
                                 label: "evidence",
                                 "@id": "oa:Composite", // Things to support the assertion property:@value
                                 _defaultValue: [],
-                                _typeOf: ["*"],
+                                _typeOf: [],
                                 _noTypeRestriction: true,
                                 _nMin: 0,
                                 _nMax: Infinity,
@@ -153,8 +153,25 @@ angular.module("Eventities", ['ngStorage', 'ui.bootstrap'])
     .controller("AdminController", function ($scope, $localStorage) {
         $scope.types = $localStorage.types;
         $scope.defaultObjectTypes = ["string", "number", "uri", "array"];
-        $scope.addToConfig = function (config) {
-            var toAdd = config;
+        $scope.addToConfig = function () {
+            $scope.types[$scope.newEnt.label] = $scope.newEnt;
+        };
+        $scope.newPropReset = (function () {
+            $scope.newProp = {
+                _nMin: 0,
+                _noTypeRestriction: true
+            };
+        })();
+        $scope.addProp = function () {
+            $scope.newEnt.defaultFields.push(angular.copy($scope.newProp));
+            $scope.newPropReset;
+        };
+        $scope.isNum = function (num) {
+            if (!num) {
+                return false;
+            } else {
+                return !isNaN(num);
+            }
         };
         $scope.newEnt = {
             class: "ENTITY", // init, for now

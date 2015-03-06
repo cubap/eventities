@@ -61,18 +61,20 @@
                                 Load from {{newEnt.class}}
                             </button>
                             <accordion>
-                                <accordion-group heading="{{field.label}}" class="form-group"
+                                <accordion-group heading="{{field.label}}"
                                                  ng-repeat="field in newEnt.defaultFields"
                                                  is-disabled="field.label==='@type'||field.label==='label'"
                                                  title="{{(field.label==='@type'||field.label==='label')&&'Altering this property breaks compliance'||'Click to modify'}}">
-                                    <label>type</label> <input class="form-control" ng-model='field["@id"]' placeholder='context or uri to link'>
+                                    <div class="form-group">
+                                        <label>type</label> <input class="form-control" ng-model='field["@id"]' placeholder='context or uri to link'>
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-6">
                                             <label>default value</label> <input class="form-control" ng-model="field._defaultValue" placeholder='initial setting'>
                                         </div>
                                         <div class="col-sm-3">
                                             <label>Minimum</label>
-                                            <input type="number" class="form-control" ng-model="field._nMin">
+                                            <input type="number" min="0" class="form-control" ng-model="field._nMin">
                                         </div>
                                         <div class="col-sm-3">
                                             <label>Maximum</label>
@@ -115,6 +117,69 @@
                                             </div>
                                         </div>
                                     </div>
+                                </accordion-group>
+                                <accordion-group ng-show="newEnt.defaultFields.length">
+                                    <accordion-heading>
+                                        <div class="input-group" ng-class="{'has-warning':isNum(newProp.label)}">
+                                            <input class="form-control" type="text" ng-model="newProp.label" placeholder="New Property">
+                                            <span class="input-group-addon" type="warning" ng-show="isNum(newProp.label)">
+                                                Numbers are not recommended as property labels
+                                            </span>
+                                        </div>
+                                    </accordion-heading>
+                                    <div class="form-group">
+                                        <label>type</label> <input class="form-control" ng-model='newProp["@id"]' placeholder='context or uri to link'>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label>default value</label> <input class="form-control" ng-model="newProp._defaultValue" placeholder='initial setting'>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Minimum</label>
+                                            <input type="number" min="0" class="form-control" ng-model="newProp._nMin">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Maximum</label>
+                                            <div class="input-group">
+                                                <input ng-hide="newProp._infinite" min="0" type="number" class="form-control" ng-model="newProp._nMax">
+                                                <input ng-show="newProp._infinite" class="form-control" disabled value="&infin;">
+                                                <span class="input-group-btn">
+                                                    <label class="btn btn-primary" ng-model="newProp._infinite" btn-checkbox>
+                                                        {{newProp._infinite && "unlimited"||"&infin;"}}
+                                                    </label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label>Expected value types</label>
+                                    <p class="help-block">
+                                        <span ng-show="newProp._noTypeRestriction">No restrictions</span>
+                                        <span class="label label-info" ng-hide="newProp._noTypeRestriction" ng-repeat="f in newProp._typeOf">{{f}}</span>
+                                    </p>
+                                    <label btn-checkbox ng-model="newProp._noTypeRestriction"
+                                           class="btn-primary btn">
+                                        <i class="fa fa-toggle-{{newProp._noTypeRestriction && 'on'||'off'}}"></i>
+                                        {{"Accept anything"}}
+                                    </label>
+                                    <div collapse="newProp._noTypeRestriction">
+                                        <div class="col-xs-12">
+                                            <p class="help-block">Basic Types</p>
+                                            <div class="btn-group btn-group-justified col-xs-12">
+                                                <a class="btn btn-default" ng-click='toggleValue(field, value)'
+                                                   role="button" ng-class="{active:newProp._typeOf.indexOf(value) > -1}"
+                                                   ng-repeat='value in defaultObjectTypes'>{{value}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p class="help-block">Entity References</p>
+                                            <div class="btn-group btn-group-justified col-xs-12">
+                                                <a class="btn btn-default" ng-click='toggleValue(field, value)'
+                                                   role="button" ng-class="{active:newProp._typeOf.indexOf(value) > -1}"
+                                                   ng-repeat="(value,t) in types">{{value}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button ng-click="addProp()" class="btn btn-primary">Add {{newProp.label}}</button>
                                 </accordion-group>
                             </accordion>
                         </div>
